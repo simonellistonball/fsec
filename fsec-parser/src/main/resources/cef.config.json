@@ -1,0 +1,19 @@
+{ 
+    "name": "test",
+    "inputTopic": "test",
+    "outputTopic": null,
+    "invalidTopic": null,
+    "errorTopic": null,
+
+    "parseChain": [
+        { 
+            "parser": "fsec.parser.syslog",
+            "config": {}
+        },
+        { 
+            "parser": "fsec.parser.cef",
+            "config": {}
+        }
+    ]
+
+}
