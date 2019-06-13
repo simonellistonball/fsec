@@ -1,0 +1,14 @@
+[
+    {
+        "id": "test",
+        "name": "test",
+        "topic": "test",
+        "status": "RUNNING",
+        "warning": false,
+        "error": false,
+        "recentEvents": 0,
+        "recentErrors": 0,
+        "currentLag": 0,
+        "currentLagTime": 0
+    }
+]

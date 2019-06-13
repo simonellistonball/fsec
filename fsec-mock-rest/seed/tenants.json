@@ -1,0 +1,22 @@
+[
+    {
+        "id": "test",
+        "name": "test"
+    },
+    {
+        "id": "default",
+        "name": "default"
+    },
+    {
+        "id": "dev",
+        "name": "development"
+    },
+    {
+        "id": "cust-1",
+        "name": "Customer 1"
+    },
+    {
+        "id": "cust-2",
+        "name": "Customer 2"
+    }
+]

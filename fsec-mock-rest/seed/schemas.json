@@ -1,0 +1,158 @@
+[
+    {
+        "id": "metron",
+        "name": "metron",
+        "fields": [
+            {
+                "name": "metron_alert",
+                "description": "indicates whether alert processing should occur",
+                "type": "boolean"
+            },
+            {
+                "name": "metron_description",
+                "description": "The description of this event",
+                "type": "text"
+            },
+            {
+                "name": "metron_timestamp",
+                "description": "The nearest time to the event occuring",
+                "type": "timestamp"
+            },
+            {
+                "name": "metron_raw",
+                "description": "The raw message that lead to this event",
+                "type": "text"
+            },
+            {
+                "name": "metron_score",
+                "description": "The score of the alert",
+                "type": "float",
+                "required": false
+            },
+            {
+                "name": "metron_reason",
+                "description": "The reason for the score",
+                "type": "text",
+                "required": false
+            }
+        ]
+    },
+    {
+        "id": "network conversation",
+        "name": "network conversation",
+        "fields": [
+            {
+                "name": "src_ip",
+                "description": "Source address which initiated communication",
+                "trait": "address"
+            },
+            {
+                "name": "dst_ip",
+                "description": "Destination address receiving communication",
+                "trait": "address"
+            },
+            {
+                "name": "src_port",
+                "description": "Source port",
+                "trait": "port"
+            },
+            {
+                "name": "dst_port",
+                "description": "Destination port",
+                "trait": "port"
+            }
+        ]
+    },
+    {
+        "id": "address",
+        "name": "ip address",
+        "description": "An IP Address, in ipv4 or ipv6 format",
+        "type": "ip"
+    },
+    {
+        "id": "port",
+        "name": "ip port",
+        "type": "int"
+    },
+    {
+        "id": "domain",
+        "name": "domain"
+    },
+    {
+        "id": "proxy request",
+        "name": "proxy request",
+        "fields": [
+            {
+                "trait": "http request"
+            },{
+                "name": "proxy result",
+                "description": "Result of the proxy request",
+                "type": "text"
+            },{
+                "name": "cached",
+                "description": "Result was served from proxy cache",
+                "type": "boolean"
+            },{
+                "name": "client request",
+                "trait": "http request"
+            }
+        ]
+    },
+    {
+        "id": "firewall",
+        "name": "firewall"
+    },
+    {
+        "id": "http request",
+        "name": "http request",
+        "fields": [
+            {"name": "method", "type": "text", "required": true },
+            {"name": "url", "trait": "url", "required": true },
+            {"name": "cookies", "type": "text", "required": false },
+            {"name": "headers", "type": "kv[]", "required": false }
+        ]
+    },
+    {
+        "id": "email",
+        "name": "email",
+        "fields": [
+          { "name": "from", "type": "email", "required": "true" },
+          { "name": "to", "type": "email[]", "required": "true" },
+          { "name": "cc", "type": "email[]", "required": "false" },
+          { "name": "bcc", "type": "email[]", "required": "false" },
+          { "name": "subject", "type": "text", "required": "true" },
+          { "name": "content", "type": "text", "required": "true" },
+          { "name": "headers", "type": "kv[]", "required": "true" }
+        ]
+    },
+    {
+        "id": "packet header",
+        "name": "packet header"
+    },
+    {
+        "id": "url",
+        "name": "url",
+        "fields": [
+            { "name": "protocol", "type": "text", "required": "true" },
+            { "name": "username", "type": "text", "required": "false" },
+            { "name": "password", "type": "text", "required": "false" },
+            { "name": "host", "trait": "fqdn", "required": "true" },
+            { "name": "port", "type": "text", "required": "false" },
+            { "name": "path", "type": "text", "required": "false" },
+            { "name": "query", "type": "text", "required": "false" }
+        ]
+    },
+    {
+        "id": "fqdn",
+        "name": "fqdn",
+        "description": "Fully qualified domain name",
+        "fields": [
+            { "name": "", "type": "text", "required": "true" },
+            { "name": "tld", "type": "text", "calculated": true},
+            { "name": "domain_without_sub", "type": "text", "calculated": true},
+            { "name": "pure_domain_name", "description": "Domain name without sub domains or TLD", "type": "text", "calculated": true},
+            { "name": "subdomains", "type": "text", "calculated": true},
+            { "name": "host", "description": "First part only of domain name", "type": "text", "calculated": true, "required": "true"}
+        ]
+    }
+]
