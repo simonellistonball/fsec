@@ -1,0 +1,27 @@
+<nz-table #sensorTable
+  nzShowSizeChanger
+  [nzFrontPagination]="false"
+  [nzData]="dataSet | async"
+  [nzLoading]="loading"
+  [nzTotal]="total"
+  >
+
+  <thead (nzSortChange)="sort($event)" nzSingleSor>
+    <tr>
+      <th nzShowSort nzSortKey="first_name">First Name</th>
+      <th nzShowSort nzSortKey="last_name">Last Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-template ngFor let-data [ngForOf]="sensorTable.data">
+      <tr [class.error]="data.error" [class.warning]="data.warning">
+        <td>
+          {{ data.first_name }}
+        </td>
+        <td>
+          {{ data.last_name }}
+        </td>
+      </tr>
+      </ng-template>
+  </tbody>
+</nz-table>

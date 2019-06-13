@@ -1,0 +1,49 @@
+<nz-table #sensorTable
+  nzShowSizeChanger
+  [nzFrontPagination]="false"
+  [nzData]="dataSet | async"
+  [nzLoading]="loading"
+  [nzTotal]="total"
+  [(nzPageIndex)]="pageIndex"
+  [(nzPageSize)]="pageSize"
+  (nzPageIndexChange)="search()"
+  (nzPageSizeChange)="search()">
+
+  <thead (nzSortChange)="sort($event)" nzSingleSor>
+    <tr>
+      <th nzShowExpand></th>
+      <th nzShowSort nzSortKey="warning" nzShowFilter [nzFilterMultiple]="false" [nzFilters]="booleanFilter" (nzFilterChange)="filter($event, 'warning')"><i nz-icon [nzType]="'warning'"></i></th>
+      <th nzShowSort nzSortKey="error" nzShowFilter [nzFilterMultiple]="false" [nzFilters]="booleanFilter" (nzFilterChange)="filter($event, 'error')"><i nz-icon [nzType]="'fire'"></i></th>
+      <th nzShowSort nzSortKey="name">Name</th>
+      <th nzShowSort nzSortKey="topic">Topic</th>
+      <th nzShowSort nzSortKey="status">Status</th>
+      <th>Events</th>
+      <th>Errors</th>
+      <th nzShowSort nzSortKey="currentLag" colspan="2">Lag</th>
+      <th>Recent Flow</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-template ngFor let-data [ngForOf]="sensorTable.data">
+      <tr [class.error]="data.error" [class.warning]="data.warning">
+        <td nzShowExpand [(nzExpand)]="mapOfExpandData[data.id]"></td>
+        <td><i nz-icon [nzType]="'warning'" *ngIf="data.warning" [nzTheme]="'fill'"></i></td>
+        <td><i nz-icon [nzType]="'fire'" *ngIf="data.error" [nzTheme]="'fill'"></i></td>
+        <td>
+          {{ data.name }}
+        </td>
+        <td>{{ data.topic }}</td>
+        <td>{{ data.status }}</td>
+        <td>{{ data.recentEvents }}</td>
+        <td>{{ data.recentErrors }}</td>
+        <td>{{ data.currentLag }}</td>
+        <td>{{ data.currentLagTime }}s</td>
+        <td>Recent Flow chart</td>
+      </tr>
+      <tr [nzExpand]="mapOfExpandData[data.id]">
+          <td></td>
+          <td colspan="10">{{ data.name }}</td>
+        </tr>
+      </ng-template>
+  </tbody>
+</nz-table>

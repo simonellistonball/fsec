@@ -1,0 +1,11 @@
+<nz-select
+    [nzMaxTagCount]="50"
+    [nzMaxTagPlaceholder]="tagPlaceHolder"
+    style="width: 100%"
+    nzMode="multiple"
+    nzPlaceHolder="All Tenants"
+    [(ngModel)]="listOfSelectedValue"
+  >
+  <nz-option *ngFor="let option of dataSet | async" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+</nz-select>
+<ng-template #tagPlaceHolder let-selectedList> and {{ selectedList.length }} more selected </ng-template>

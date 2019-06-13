@@ -1,0 +1,15 @@
+<nz-select
+      style="width: 400px;"
+      nzShowSearch
+      nzServerSearch
+      nzPlaceHolder="Search enrichments"
+      [nzShowArrow]="false"
+      [nzFilterOption]="nzFilterOption"
+      [(ngModel)]="selectedValue"
+      (nzOnSearch)="search($event)"
+      (ngModelChange)="select($event)"
+    >
+    <ng-container *ngIf="listOfOption | async; let listOfOption">
+      <nz-option *ngFor="let o of listOfOption" [nzLabel]="o.text" [nzValue]="o.value"> </nz-option>
+    </ng-container>
+  </nz-select>

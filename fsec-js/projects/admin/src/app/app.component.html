@@ -1,0 +1,46 @@
+<nz-layout>
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzWidth]="width" [nzReverseArrow]="isReverseArrow">
+    <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu>
+        <span title><i nz-icon type="tool"></i><span class="nav-text">Configuration</span></span>
+        <ul>
+          <li nz-menu-item><a routerLink="/sensors">Sensors</a></li>
+          <li nz-menu-item><a routerLink="/schema">Schema</a></li>
+          <li nz-menu-item><a routerLink="/enrichments">Enrichments</a></li>
+          <li nz-menu-item><a routerLink="/profiles">Profiles</a></li>
+        </ul>
+      </li>
+      <li nz-submenu>
+        <span title><i nz-icon type="team"></i><span class="nav-text">Users and Tenants</span></span>
+        <ul>
+            <li nz-menu-item><a routerLink="/tenants">Tenants</a></li>
+            <li nz-menu-item><a routerLink="/users">Users</a></li>
+        </ul>
+      </li>
+      <li nz-submenu>
+        <span title><i nz-icon type="team"></i><span class="nav-text">System</span></span>
+        <ul>
+          <li nz-menu-item><a routerLink="/performance">Performance</a></li>
+        </ul>
+      </li>
+      <li nz-menu-item>
+        <span><i nz-icon type="file"></i><span class="nav-text">Investigation</span></span>
+      </li>
+      <li nz-submenu>
+        <span title><i nz-icon type="search"></i><span class="nav-text">Filter Tenants</span></span>
+        <app-tenant-filter></app-tenant-filter>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header style="background: #fff; padding:0 16px;">
+      <nz-breadcrumb [nzAutoGenerate]="true" style="margin:16px 0;"></nz-breadcrumb>
+    </nz-header>
+    <nz-content style="margin:16px 16px 0px 16px;">
+      <div style="padding:4px; background: #fff; min-height: 360px;">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+    <nz-footer style="text-align: center;">Fsec</nz-footer>
+  </nz-layout>
+</nz-layout>
