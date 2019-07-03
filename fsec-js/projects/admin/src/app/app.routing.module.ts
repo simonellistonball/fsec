@@ -9,6 +9,7 @@ import { ProfilesComponent } from './profiles/profiles.component';
 import { IncompleteComponent } from './incomplete/incomplete.component';
 import { TenantsComponent } from './tenants/tenants.component';
 import { UsersComponent } from './users/users.component';
+import { TraitEnrichmentsComponent } from './trait-enrichments/trait-enrichments.component';
 
 const routes: Routes = [
   {
@@ -79,6 +80,13 @@ const routes: Routes = [
     component: IncompleteComponent,
     data: {
       breadcrumb: 'investigate'
+    }
+  },
+  {
+    path: 'trait-enrichments/:id',
+    component: TraitEnrichmentsComponent,
+    data: {
+      breadcrumb: 'enrichments'
     }
   }
 ];

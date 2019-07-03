@@ -79,22 +79,52 @@
         "name": "domain"
     },
     {
+        "id": "user",
+        "name": "user",
+        "fields": [
+            {
+                "name": "username",
+                "type": "text"
+            },
+            {
+                "name": "fullname",
+                "type": "text",
+                "secure": "true"
+            },
+            {
+                "name": "risk",
+                "type": "float"
+            }
+        ]
+    },
+    {
         "id": "proxy request",
         "name": "proxy request",
         "fields": [
             {
                 "trait": "http request"
-            },{
+            },
+            {
                 "name": "proxy result",
                 "description": "Result of the proxy request",
                 "type": "text"
-            },{
+            },
+            {
                 "name": "cached",
                 "description": "Result was served from proxy cache",
                 "type": "boolean"
-            },{
+            },
+            {
                 "name": "client request",
                 "trait": "http request"
+            },
+            {
+                "name": "client ip",
+                "trait": "address"
+            },
+            {
+                "name": "user",
+                "trait": "user"
             }
         ]
     },
@@ -106,23 +136,67 @@
         "id": "http request",
         "name": "http request",
         "fields": [
-            {"name": "method", "type": "text", "required": true },
-            {"name": "url", "trait": "url", "required": true },
-            {"name": "cookies", "type": "text", "required": false },
-            {"name": "headers", "type": "kv[]", "required": false }
+            {
+                "name": "method",
+                "type": "text",
+                "required": true
+            },
+            {
+                "name": "url",
+                "trait": "url",
+                "required": true
+            },
+            {
+                "name": "cookies",
+                "type": "text",
+                "required": false
+            },
+            {
+                "name": "headers",
+                "type": "kv[]",
+                "required": false
+            }
         ]
     },
     {
         "id": "email",
         "name": "email",
         "fields": [
-          { "name": "from", "type": "email", "required": "true" },
-          { "name": "to", "type": "email[]", "required": "true" },
-          { "name": "cc", "type": "email[]", "required": "false" },
-          { "name": "bcc", "type": "email[]", "required": "false" },
-          { "name": "subject", "type": "text", "required": "true" },
-          { "name": "content", "type": "text", "required": "true" },
-          { "name": "headers", "type": "kv[]", "required": "true" }
+            {
+                "name": "from",
+                "type": "email",
+                "required": "true"
+            },
+            {
+                "name": "to",
+                "type": "email[]",
+                "required": "true"
+            },
+            {
+                "name": "cc",
+                "type": "email[]",
+                "required": "false"
+            },
+            {
+                "name": "bcc",
+                "type": "email[]",
+                "required": "false"
+            },
+            {
+                "name": "subject",
+                "type": "text",
+                "required": "true"
+            },
+            {
+                "name": "content",
+                "type": "text",
+                "required": "true"
+            },
+            {
+                "name": "headers",
+                "type": "kv[]",
+                "required": "true"
+            }
         ]
     },
     {
@@ -133,13 +207,42 @@
         "id": "url",
         "name": "url",
         "fields": [
-            { "name": "protocol", "type": "text", "required": "true" },
-            { "name": "username", "type": "text", "required": "false" },
-            { "name": "password", "type": "text", "required": "false" },
-            { "name": "host", "trait": "fqdn", "required": "true" },
-            { "name": "port", "type": "text", "required": "false" },
-            { "name": "path", "type": "text", "required": "false" },
-            { "name": "query", "type": "text", "required": "false" }
+            {
+                "name": "protocol",
+                "type": "text",
+                "required": "true"
+            },
+            {
+                "name": "username",
+                "type": "text",
+                "required": "false"
+            },
+            {
+                "name": "password",
+                "type": "text",
+                "required": "false"
+            },
+            {
+                "name": "host",
+                "trait": "fqdn",
+                "required": "true",
+                "enrichments": ["host-blacklist"]
+            },
+            {
+                "name": "port",
+                "type": "text",
+                "required": "false"
+            },
+            {
+                "name": "path",
+                "type": "text",
+                "required": "false"
+            },
+            {
+                "name": "query",
+                "type": "text",
+                "required": "false"
+            }
         ]
     },
     {
@@ -147,12 +250,40 @@
         "name": "fqdn",
         "description": "Fully qualified domain name",
         "fields": [
-            { "name": "", "type": "text", "required": "true" },
-            { "name": "tld", "type": "text", "calculated": true},
-            { "name": "domain_without_sub", "type": "text", "calculated": true},
-            { "name": "pure_domain_name", "description": "Domain name without sub domains or TLD", "type": "text", "calculated": true},
-            { "name": "subdomains", "type": "text", "calculated": true},
-            { "name": "host", "description": "First part only of domain name", "type": "text", "calculated": true, "required": "true"}
+            {
+                "name": "",
+                "type": "text",
+                "required": "true"
+            },
+            {
+                "name": "tld",
+                "type": "text",
+                "calculated": true
+            },
+            {
+                "name": "domain_without_sub",
+                "type": "text",
+                "calculated": true
+            },
+            {
+                "name": "pure_domain_name",
+                "description": "Domain name without sub domains or TLD",
+                "type": "text",
+                "calculated": true,
+                "enrichemnts": [ "domain-whitelist", "domain-blacklist", "dga-2", "rare_domain", "new_domain" ]
+            },
+            {
+                "name": "subdomains",
+                "type": "text",
+                "calculated": true
+            },
+            {
+                "name": "host",
+                "description": "First part only of domain name",
+                "type": "text",
+                "calculated": true,
+                "required": "true"
+            }
         ]
     }
 ]

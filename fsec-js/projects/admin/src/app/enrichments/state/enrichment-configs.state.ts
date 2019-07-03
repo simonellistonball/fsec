@@ -2,11 +2,16 @@ import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { SearchEnrichmentConfigsAction } from './enrichment-configs.actions';
 import { EnrichmentConfigsService } from '../../enrichment-configs.service';
 import { tap } from 'rxjs/operators';
+import { SearchSpec } from '../../search-spec';
 
 export interface EnrichmentConfig {
-  trait: string;
+  id: string;
   name: string;
+  description: string | null;
   type: string;
+  engine: string;
+  model?: string;
+  model_version?: number;
   lookup: string | null;
   code: string | null;
 }
@@ -25,13 +30,13 @@ export class EnrichmentConfigsState {
 
   @Selector()
   static getList(state: EnrichmentConfigsStateModel) {
-    return state.items.map((v) => ({ value: v.name, text: v.name }));
+    return state.items;
   }
 
   @Action(SearchEnrichmentConfigsAction)
   search(ctx: StateContext<EnrichmentConfigsStateModel>, action: SearchEnrichmentConfigsAction) {
     const state = ctx.getState();
-    return this.enrichmentConfigService.searchConfigs(action.q).pipe(tap((result) => {
+    return this.enrichmentConfigService.get(null).pipe(tap((result) => {
       ctx.patchState({
         items: result
       });

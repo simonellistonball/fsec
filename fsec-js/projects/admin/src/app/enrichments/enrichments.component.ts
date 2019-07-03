@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { EnrichmentConfigsState } from './state/enrichment-configs.state';
+import { EnrichmentConfigsState, EnrichmentConfig } from './state/enrichment-configs.state';
+import { SearchEnrichmentConfigsAction } from './state/enrichment-configs.actions';
 
 @Component({
   selector: 'app-enrichments',
@@ -10,13 +11,13 @@ import { EnrichmentConfigsState } from './state/enrichment-configs.state';
 })
 export class EnrichmentsComponent implements OnInit {
   selectedValue = null;
-  @Select(EnrichmentConfigsState.getList) listOfOption: Observable<Array<{ value: string; text: string }>>;
+  @Select(EnrichmentConfigsState.getList) listOfOption: Observable<Array<EnrichmentConfig>>;
   nzFilterOption = () => true;
 
   constructor(private store: Store) {  }
 
   ngOnInit() {
-    //this.store.dispatch(new SearchEnrichmentConfigsAction());
+    this.store.dispatch(new SearchEnrichmentConfigsAction(null));
   }
 
   search(q: string) { }

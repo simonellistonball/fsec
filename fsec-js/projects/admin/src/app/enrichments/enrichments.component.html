@@ -10,6 +10,8 @@
       (ngModelChange)="select($event)"
     >
     <ng-container *ngIf="listOfOption | async; let listOfOption">
-      <nz-option *ngFor="let o of listOfOption" [nzLabel]="o.text" [nzValue]="o.value"> </nz-option>
+      <nz-option *ngFor="let o of listOfOption" [nzLabel]="o.name" [nzValue]="o.id" nzCustomContent>
+        {{ o.type }} | {{ o.name }} {{ o.model_version }}
+      </nz-option>
     </ng-container>
   </nz-select>

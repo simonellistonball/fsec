@@ -1,0 +1,72 @@
+[
+    {
+        "id": "url-host-bad",
+        "name": "host blacklist",
+        "description": "Redis table based lookup for blacklisted host names",
+        "type": "list",
+        "engine": "redis",
+        "table": "url_host_bad",
+        "key": "host",
+        "values": [
+            "score"
+        ]
+    },
+    {
+        "id": "dga-1",
+        "name": "dga detection",
+        "type": "ml",
+        "model": "dga",
+        "model_version": "1.0"
+    },
+    {
+        "id": "dga-2",
+        "name": "dga detection",
+        "description": "A machine learning model to determine DGA status",
+        "type": "ml",
+        "model": "dga",
+        "model_version": "2.0"
+    },
+    {
+        "id": "domain-whitelist",
+        "name": "domain whitelist",
+        "description": "Domain whitelist stored in HBase",
+        "type": "list",
+        "engine": "hbase",
+        "key": "domain",
+        "values": [
+            "source"
+        ]
+    },
+    {
+        "id": "domain-blacklist",
+        "name": "domain blacklist",
+        "description": "Domain blacklist stored in HBase",
+        "type": "list",
+        "engine": "hbase",
+        "key": "domain",
+        "values": [
+            "source",
+            "score"
+        ]
+    },
+    {
+        "id": "rare_domain",
+        "name": "rare domain",
+        "description": "Adds a score based on the rarity of the domain",
+        "type": "model"
+    },
+    {
+        "id": "new_domain",
+        "name": "new domain",
+        "description": "Determines if we have ever seen this domain before",
+        "type": "upsert list",
+        "engine": "hbase",
+        "key": "domain",
+        "values": [
+            {
+                "added": "new Date()",
+                "source": "sensor"
+            }
+        ]
+    }
+]

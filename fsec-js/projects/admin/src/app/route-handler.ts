@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterNavigation } from '@ngxs/router-plugin';
 import { FetchSchemaAction } from './schema/state/schemas.actions';
+import { GetTraitEnrichmentsAction } from './trait-enrichments/state/trait-enrichments.actions';
 
 @Injectable()
 export class RouteHandler {
@@ -11,9 +12,12 @@ export class RouteHandler {
       .pipe(ofActionSuccessful(RouterNavigation))
       .subscribe((r) => {
         if (r.routerState) {
-          const schemaId = r.routerState.root.firstChild.params.id;
-          if (schemaId !== undefined && r.routerState.url.startsWith('/schema')) {
-            this.store.dispatch(new FetchSchemaAction(schemaId, 0));
+          const id = r.routerState.root.firstChild.params.id;
+          if (id !== undefined && r.routerState.url.startsWith('/schema')) {
+            this.store.dispatch(new FetchSchemaAction(id, 0));
+          }
+          if (id !== undefined && r.routerState.url.startsWith('/trait-enrichments')) {
+            this.store.dispatch(new GetTraitEnrichmentsAction(id));
           }
         }
       });

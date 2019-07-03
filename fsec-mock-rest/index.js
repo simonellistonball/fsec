@@ -14,7 +14,8 @@ var stores = {
   sensors: [],
   schemas: [],
   tenants: [], 
-  users: []
+  users: [],
+  enrichments: []
 }
 
 app.set('port', (process.env.PORT || 3000));
@@ -138,6 +139,18 @@ router.get(apiRoot+'/:resource/:id', function(req, res) {
     res.status(404).send("No object with id="+id+" in " + resource);
   }
 })
+
+router.get(apiRoot+'/:resource/:id/:sub_resource', function(req, res) {
+  let id = req.params.id, resource = req.params.resource;
+  let obj = stores[resource].filter((f)=>(f.id == id))[0];
+  if(obj) {
+    res.status(200).json(obj[req.params.sub_resource]);
+  }
+  else {
+    res.status(404).send("No object with id="+id+" in " + resource);
+  }
+})
+
 router.delete(apiRoot+'/:resource/:id', function(req, res) {
   let id = req.params.id;
   let resource = req.params.resource;

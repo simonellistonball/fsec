@@ -2,7 +2,8 @@
 
   <svg #backgroundSvg [style.width]="(models.items.length * 300 + (models.items.length - 1) * 80)  + 'px'">
       <svg:g class="links">
-      <svg:g #linkElement *ngFor="let lg of models.links; let i = index" class="link-group" [attr.transform]="'translate(' + 300 * (i + 1) + ',0)'">
+      <svg:g #linkElement *ngFor="let lg of models.links; let i = index" class="link-group" [attr.transform]="'translate(' + (380 * i + 300) + ',0)'">
+        <svg:rect x="5" y="0" width="70" height="100%" fill="blue"></svg:rect>
         <svg:path class="edge" [attr.d]="link.line" stroke="black" stroke-width="2" *ngFor="let link of lg"/>
       </svg:g>
     </svg:g>
@@ -10,10 +11,10 @@
   <ng-container *ngFor="let col of models.items; let i = index">
     <div class="col" [style.left]="(i * 380) + 'px'">
       <ng-container *ngFor="let data of col">
-        <nz-card class="trait" [style.top]="(data.top) + 'px'" [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
+        <nz-card app-trait class="trait" [style.top]="(data.top) + 'px'" [nzActions]="[actionEdit, actionEnrichment, actionEllipsis]">
           <nz-card-meta
             [nzTitle]="nzCardTitle"
-            [nzDescription]="data.description"
+            [nzDescription]="data.description || 'Descripton missing'"
           ></nz-card-meta>
           <ng-template #nzCardTitle>
               <a [routerLink]="['/schema', data.id]">{{ data.name }}</a>
@@ -34,19 +35,19 @@
               </ng-template>
             </nz-list>
         </nz-card>
+
+        <ng-template #actionEnrichment>
+          <div (click)="enrichment(data)" class="action-wrapper"><i nz-icon type="bars"></i></div>
+        </ng-template>
+        <ng-template #actionEdit>
+          <div (click)="edit(data)" class="action-wrapper"><i nz-icon type="edit"></i></div>
+        </ng-template>
+        <ng-template #actionEllipsis>
+          <div (click)="more(data)" class="action-wrapper"><i nz-icon type="ellipsis"></i></div>
+        </ng-template>
+
       </ng-container>
     </div>
   </ng-container>
 </div>
 
-<ng-template #actionSetting>
-  <i nz-icon type="setting"></i>
-
-</ng-template>
-<ng-template #actionEdit>
-  <i nz-icon type="edit"></i>
-
-</ng-template>
-<ng-template #actionEllipsis>
-  <i nz-icon type="ellipsis"></i>
-</ng-template>

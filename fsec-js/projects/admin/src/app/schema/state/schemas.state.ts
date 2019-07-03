@@ -11,6 +11,7 @@ export class SchemaField {
   public name: string;
   public type: string;
   public trait?: string;
+  public secure?: boolean;
 }
 
 export class SchemaStateModel {
@@ -44,7 +45,8 @@ export class SchemaState {
     if (items.length < 2) { return []; }
     let out = [];
     for (let i = 1; i < items.length; i++) {
-      out[i-1] = items[i-1].map((parentTrait) => {
+      out[i - 1] = items[i - 1].map((parentTrait) => {
+        if (!parentTrait.fields) { return; }
         return parentTrait.fields
           .filter((f) => 'trait' in f)
           .map((t) => ({
@@ -52,10 +54,12 @@ export class SchemaState {
             from_field: t.name,
             from_col: i - 1,
             to: items[i].findIndex((child) => child.id === t.trait),
+            to_obj: items[i].find((child) => child.id === t.trait),
             to_col: i
           }));
-      });
+      }).filter((i) => i);
     }
+    console.log(out.flat());
     return out.flat();
   }
 
