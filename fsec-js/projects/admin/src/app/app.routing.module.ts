@@ -10,6 +10,7 @@ import { IncompleteComponent } from './incomplete/incomplete.component';
 import { TenantsComponent } from './tenants/tenants.component';
 import { UsersComponent } from './users/users.component';
 import { TraitEnrichmentsComponent } from './trait-enrichments/trait-enrichments.component';
+import { EnrichmentEditComponent } from './enrichment-edit/enrichment-edit.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,13 @@ const routes: Routes = [
     component: EnrichmentsComponent,
     data: {
       breadcrumb: 'enrichments'
+    }
+  },
+  {
+    path: 'enrichments/new',
+    component: EnrichmentEditComponent,
+    data: {
+      breadcrumb: 'edit'
     }
   },
   {

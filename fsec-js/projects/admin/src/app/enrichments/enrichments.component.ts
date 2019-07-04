@@ -3,6 +3,7 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { EnrichmentConfigsState, EnrichmentConfig } from './state/enrichment-configs.state';
 import { SearchEnrichmentConfigsAction } from './state/enrichment-configs.actions';
+import { RouterNavigation, Navigate } from '@ngxs/router-plugin';
 
 @Component({
   selector: 'app-enrichments',
@@ -24,5 +25,9 @@ export class EnrichmentsComponent implements OnInit {
 
   select(name: string) {
     //this.store.dispatch(new FetchSchemaAction(name));
+  }
+
+  newEnrichment() {
+    this.store.dispatch(new Navigate(['/enrichments/new']));
   }
 }

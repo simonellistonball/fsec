@@ -36,6 +36,7 @@ import { NgPipesModule } from 'ngx-pipes';
 import { TraitEnrichmentsComponent } from './trait-enrichments/trait-enrichments.component';
 import { TraitEnrichmentsState } from './trait-enrichments/state/trait-enrichments.state';
 import { EnrichmentConfigsState } from './enrichments/state/enrichment-configs.state';
+import { EnrichmentEditComponent } from './enrichment-edit/enrichment-edit.component';
 
 export function noop() { return function() {}; };
 
@@ -56,7 +57,8 @@ registerLocaleData(en);
     SchemaTraitComponent,
     UsersComponent,
     TraitEnrichmentsComponent,
-    TraitDirective
+    TraitDirective,
+    EnrichmentEditComponent
   ],
   imports: [
     BrowserModule,
