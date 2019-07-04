@@ -9,6 +9,21 @@
         "recentEvents": 0,
         "recentErrors": 0,
         "currentLag": 0,
-        "currentLagTime": 0
+        "currentLagTime": 0,
+        "tenant": "default"
+    },
+    {
+        "id": "test customer",
+        "name": "test",
+        "topic": "test",
+        "status": "RUNNING",
+        "warning": true,
+        "error": false,
+        "recentEvents": 1000,
+        "recentErrors": 4,
+        "currentLag": 324,
+        "currentLagTime": 1200,
+        "tenant": "cust-1"
     }
+
 ]

@@ -14,6 +14,7 @@
       <th nzShowExpand></th>
       <th nzShowSort nzSortKey="warning" nzShowFilter [nzFilterMultiple]="false" [nzFilters]="booleanFilter" (nzFilterChange)="filter($event, 'warning')"><i nz-icon [nzType]="'warning'"></i></th>
       <th nzShowSort nzSortKey="error" nzShowFilter [nzFilterMultiple]="false" [nzFilters]="booleanFilter" (nzFilterChange)="filter($event, 'error')"><i nz-icon [nzType]="'fire'"></i></th>
+      <th nzShowSort nzSortKey="tenant">Tenant</th>
       <th nzShowSort nzSortKey="name">Name</th>
       <th nzShowSort nzSortKey="topic">Topic</th>
       <th nzShowSort nzSortKey="status">Status</th>
@@ -29,9 +30,8 @@
         <td nzShowExpand [(nzExpand)]="mapOfExpandData[data.id]"></td>
         <td><i nz-icon [nzType]="'warning'" *ngIf="data.warning" [nzTheme]="'fill'"></i></td>
         <td><i nz-icon [nzType]="'fire'" *ngIf="data.error" [nzTheme]="'fill'"></i></td>
-        <td>
-          {{ data.name }}
-        </td>
+        <td>{{ data.tenant }}</td>
+        <td>{{ data.name }}</td>
         <td>{{ data.topic }}</td>
         <td>{{ data.status }}</td>
         <td>{{ data.recentEvents }}</td>

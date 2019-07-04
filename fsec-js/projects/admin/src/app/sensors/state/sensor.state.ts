@@ -6,6 +6,7 @@ import {tap} from 'rxjs/operators';
 export enum SensorStatus { RUNNING, STOPPED, DISABLED, FAILING }
 
 export interface SensorListEntry {
+  tenant: string;
   name: string;
   topic: string;
   status: SensorStatus;
