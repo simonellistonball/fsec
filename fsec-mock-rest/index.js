@@ -143,8 +143,9 @@ router.get(apiRoot+'/:resource/:id', function(req, res) {
 router.get(apiRoot+'/:resource/:id/:sub_resource', function(req, res) {
   let id = req.params.id, resource = req.params.resource;
   let obj = stores[resource].filter((f)=>(f.id == id))[0];
+  console.dir({ params: req.params, obj: obj })
   if(obj) {
-    res.status(200).json(obj[req.params.sub_resource]);
+    res.status(200).json(obj);
   }
   else {
     res.status(404).send("No object with id="+id+" in " + resource);

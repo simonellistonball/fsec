@@ -20,9 +20,9 @@ export class TraitDirective {}
 export class SchemaTraitComponent implements OnInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
   @ContentChild('linkTemplate', {static: true}) linkTemplate: TemplateRef<any>;
 
-  @ContentChildren(TraitDirective)
+  /*@ContentChildren(TraitDirective)
   cards !: QueryList<TraitDirective>;
-
+*/
   @Select(SchemaState.getSchema)
   models: Observable<SchemaStatesModel>;
 
@@ -54,7 +54,7 @@ export class SchemaTraitComponent implements OnInit, AfterContentChecked, AfterV
   }
 
   ngAfterViewChecked() {
-    console.log(this.cards)
+    //console.log(this.cards)
   }
   ngAfterContentChecked() {
 

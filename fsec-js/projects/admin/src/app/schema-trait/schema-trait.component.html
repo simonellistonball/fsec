@@ -3,7 +3,6 @@
   <svg #backgroundSvg [style.width]="(models.items.length * 300 + (models.items.length - 1) * 80)  + 'px'">
       <svg:g class="links">
       <svg:g #linkElement *ngFor="let lg of models.links; let i = index" class="link-group" [attr.transform]="'translate(' + (380 * i + 300) + ',0)'">
-        <svg:rect x="5" y="0" width="70" height="100%" fill="blue"></svg:rect>
         <svg:path class="edge" [attr.d]="link.line" stroke="black" stroke-width="2" *ngFor="let link of lg"/>
       </svg:g>
     </svg:g>
@@ -22,7 +21,7 @@
           <nz-list [nzDataSource]="data.fields" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">
               <ng-template #item let-item>
                 <nz-list-item>
-                  <nz-avatar [nzText]="item.type"></nz-avatar>
+                  <!--<nz-avatar [nzText]="item.type"></nz-avatar>-->
                   <nz-list-item-meta
                     [nzTitle]="item.name || item.trait"
                     [nzDescription]="item.description"

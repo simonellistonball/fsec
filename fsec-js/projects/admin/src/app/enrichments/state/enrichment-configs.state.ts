@@ -32,6 +32,10 @@ export class EnrichmentConfigsState {
   static getList(state: EnrichmentConfigsStateModel) {
     return state.items;
   }
+  @Selector()
+  static getSelectList(state: EnrichmentConfigsStateModel) {
+    return state.items.map((i) => ({ id: i.id, name: i.name }));
+  }
 
   @Action(SearchEnrichmentConfigsAction)
   search(ctx: StateContext<EnrichmentConfigsStateModel>, action: SearchEnrichmentConfigsAction) {

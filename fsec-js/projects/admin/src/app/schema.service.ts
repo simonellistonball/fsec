@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SchemaStateModel } from './schema/state/schemas.state';
-import { SchemaFieldWithEnrichment } from './trait-enrichments/state/trait-enrichments.state';
+import { SchemaFieldWithEnrichment, TraitEnrichmentsStateModel } from './trait-enrichments/state/trait-enrichments.state';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,10 @@ export class SchemaService {
   }
 
   getEnrichments(id: string) {
-    return this.http.get<SchemaFieldWithEnrichment[]>(this.base + '/' + id + '/enrichments');
+    return this.http.get<TraitEnrichmentsStateModel>(this.base + '/' + id + '/enrichments');
+  }
+
+  setEnrichments(trait: string, field: string, enrichments: string[]) {
+    return this.http.post(this.base + `/${trait}/fields/${field}/enrichments`, enrichments);
   }
 }

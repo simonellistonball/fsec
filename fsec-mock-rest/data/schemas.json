@@ -4,26 +4,31 @@
         "name": "metron",
         "fields": [
             {
+                "id": "metron_alert",
                 "name": "metron_alert",
                 "description": "indicates whether alert processing should occur",
                 "type": "boolean"
             },
             {
+                "id": "metron_description",
                 "name": "metron_description",
                 "description": "The description of this event",
                 "type": "text"
             },
             {
                 "name": "metron_timestamp",
+                "id": "metron_timestamp",
                 "description": "The nearest time to the event occuring",
                 "type": "timestamp"
             },
             {
+                "id": "metron_raw",
                 "name": "metron_raw",
                 "description": "The raw message that lead to this event",
                 "type": "text"
             },
             {
+                "id": "metron_score",
                 "name": "metron_score",
                 "description": "The score of the alert",
                 "type": "float",
@@ -33,7 +38,8 @@
                 "name": "metron_reason",
                 "description": "The reason for the score",
                 "type": "text",
-                "required": false
+                "required": false,
+                "id": "metron_reason"
             }
         ]
     },
@@ -44,22 +50,26 @@
             {
                 "name": "src_ip",
                 "description": "Source address which initiated communication",
-                "trait": "address"
+                "trait": "address",
+                "id": "src_ip"
             },
             {
                 "name": "dst_ip",
                 "description": "Destination address receiving communication",
-                "trait": "address"
+                "trait": "address",
+                "id": "dst_ip"
             },
             {
                 "name": "src_port",
                 "description": "Source port",
-                "trait": "port"
+                "trait": "port",
+                "id": "src_port"
             },
             {
                 "name": "dst_port",
                 "description": "Destination port",
-                "trait": "port"
+                "trait": "port",
+                "id": "dst_port"
             }
         ]
     },
@@ -67,16 +77,35 @@
         "id": "address",
         "name": "ip address",
         "description": "An IP Address, in ipv4 or ipv6 format",
-        "type": "ip"
+        "fields": [
+            {
+                "id": "ip",
+                "name": "_",
+                "type": "ip"
+            }
+        ]
     },
     {
         "id": "port",
         "name": "ip port",
-        "type": "int"
+        "fields": [
+            {
+                "id": "port",
+                "name": "_",
+                "type": "int"
+            }
+        ]
     },
     {
         "id": "domain",
-        "name": "domain"
+        "name": "domain",
+        "fields": [
+            {
+                "id": "domain",
+                "name": "_",
+                "type": "string"
+            }
+        ]
     },
     {
         "id": "user",
@@ -84,16 +113,19 @@
         "fields": [
             {
                 "name": "username",
-                "type": "text"
+                "type": "text",
+                "id": "username"
             },
             {
                 "name": "fullname",
                 "type": "text",
-                "secure": "true"
+                "secure": "true",
+                "id": "fullname"
             },
             {
                 "name": "risk",
-                "type": "float"
+                "type": "float",
+                "id": "risk"
             }
         ]
     },
@@ -107,30 +139,47 @@
             {
                 "name": "proxy result",
                 "description": "Result of the proxy request",
-                "type": "text"
+                "type": "text",
+                "id": "proxy result"
             },
             {
                 "name": "cached",
                 "description": "Result was served from proxy cache",
-                "type": "boolean"
+                "type": "boolean",
+                "id": "cached"
             },
             {
                 "name": "client request",
-                "trait": "http request"
+                "trait": "http request",
+                "id": "client request"
             },
             {
                 "name": "client ip",
-                "trait": "address"
+                "trait": "address",
+                "id": "client ip"
             },
             {
                 "name": "user",
-                "trait": "user"
+                "trait": "user",
+                "id": "user"
             }
         ]
     },
     {
         "id": "firewall",
-        "name": "firewall"
+        "name": "firewall",
+        "fields": [
+            {
+                "name": "device_type",
+                "type": "text",
+                "id": "device_type"
+            },
+            {
+                "name": "action",
+                "type": "text",
+                "id": "action"
+            }
+        ]
     },
     {
         "id": "http request",
@@ -139,22 +188,26 @@
             {
                 "name": "method",
                 "type": "text",
-                "required": true
+                "required": true,
+                "id": "method"
             },
             {
                 "name": "url",
                 "trait": "url",
-                "required": true
+                "required": true,
+                "id": "url"
             },
             {
                 "name": "cookies",
                 "type": "text",
-                "required": false
+                "required": false,
+                "id": "cookies"
             },
             {
                 "name": "headers",
                 "type": "kv[]",
-                "required": false
+                "required": false,
+                "id": "headers"
             }
         ]
     },
@@ -165,43 +218,82 @@
             {
                 "name": "from",
                 "type": "email",
-                "required": "true"
+                "required": "true",
+                "id": "from"
             },
             {
                 "name": "to",
                 "type": "email[]",
-                "required": "true"
+                "required": "true",
+                "id": "to"
             },
             {
                 "name": "cc",
                 "type": "email[]",
-                "required": "false"
+                "required": "false",
+                "id": "cc"
             },
             {
                 "name": "bcc",
                 "type": "email[]",
-                "required": "false"
+                "required": "false",
+                "id": "bcc"
             },
             {
                 "name": "subject",
                 "type": "text",
-                "required": "true"
+                "required": "true",
+                "id": "subject"
             },
             {
                 "name": "content",
                 "type": "text",
-                "required": "true"
+                "required": "true",
+                "id": "content"
             },
             {
                 "name": "headers",
                 "type": "kv[]",
-                "required": "true"
+                "required": "true",
+                "id": "headers"
             }
         ]
     },
     {
         "id": "packet header",
-        "name": "packet header"
+        "name": "packet header",
+        "fields": [
+            {
+                "name": "source",
+                "trait": "ip",
+                "required": "true",
+                "id": "source"
+            },
+            {
+                "name": "source_port",
+                "trait": "port",
+                "required": "true",
+                "id": "source_port"
+            },
+            {
+                "name": "dest",
+                "trait": "ip",
+                "required": "true",
+                "id": "dest"
+            },
+            {
+                "name": "dest_port",
+                "trait": "port",
+                "required": "true",
+                "id": "dest_port"
+            },
+            {
+                "name": "protocol",
+                "type": "string",
+                "required": "true",
+                "id": "protocol"
+            }
+        ]
     },
     {
         "id": "url",
@@ -210,38 +302,47 @@
             {
                 "name": "protocol",
                 "type": "text",
-                "required": "true"
+                "required": "true",
+                "id": "protocol"
             },
             {
                 "name": "username",
                 "type": "text",
-                "required": "false"
+                "required": "false",
+                "id": "username"
             },
             {
                 "name": "password",
                 "type": "text",
-                "required": "false"
+                "required": "false",
+                "id": "password"
             },
             {
                 "name": "host",
                 "trait": "fqdn",
                 "required": "true",
-                "enrichments": ["host-blacklist"]
+                "enrichments": [
+                    "host-blacklist"
+                ],
+                "id": "host"
             },
             {
                 "name": "port",
                 "type": "text",
-                "required": "false"
+                "required": "false",
+                "id": "port"
             },
             {
                 "name": "path",
                 "type": "text",
-                "required": "false"
+                "required": "false",
+                "id": "path"
             },
             {
                 "name": "query",
                 "type": "text",
-                "required": "false"
+                "required": "false",
+                "id": "query"
             }
         ]
     },
@@ -251,38 +352,54 @@
         "description": "Fully qualified domain name",
         "fields": [
             {
-                "name": "",
+                "name": "_",
                 "type": "text",
-                "required": "true"
+                "required": "true",
+                "id": "_"
             },
             {
                 "name": "tld",
                 "type": "text",
-                "calculated": true
+                "calculated": true,
+                "script": "domain_tld(_)",
+                "id": "tld"
             },
             {
                 "name": "domain_without_sub",
                 "type": "text",
-                "calculated": true
+                "calculated": true,
+                "script": "domain_without_sub(_)",
+                "id": "domain_without_sub"
             },
             {
                 "name": "pure_domain_name",
                 "description": "Domain name without sub domains or TLD",
                 "type": "text",
                 "calculated": true,
-                "enrichemnts": [ "domain-whitelist", "domain-blacklist", "dga-2", "rare_domain", "new_domain" ]
+                "script": "domain_pure(_)",
+                "enrichemnts": [
+                    "domain-whitelist",
+                    "domain-blacklist",
+                    "dga-2",
+                    "rare_domain",
+                    "new_domain"
+                ],
+                "id": "pure_domain_name"
             },
             {
                 "name": "subdomains",
                 "type": "text",
-                "calculated": true
+                "script": "domain_subdomains(_)",
+                "calculated": true,
+                "id": "subdomains"
             },
             {
                 "name": "host",
                 "description": "First part only of domain name",
                 "type": "text",
                 "calculated": true,
-                "required": "true"
+                "script": "_.split('.')[0]",
+                "id": "host"
             }
         ]
     }

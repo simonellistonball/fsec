@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { RouterNavigation } from '@ngxs/router-plugin';
 import { FetchSchemaAction } from './schema/state/schemas.actions';
 import { GetTraitEnrichmentsAction } from './trait-enrichments/state/trait-enrichments.actions';
+import { SearchEnrichmentConfigsAction } from './enrichments/state/enrichment-configs.actions';
 
 @Injectable()
 export class RouteHandler {
@@ -18,6 +19,7 @@ export class RouteHandler {
           }
           if (id !== undefined && r.routerState.url.startsWith('/trait-enrichments')) {
             this.store.dispatch(new GetTraitEnrichmentsAction(id));
+            this.store.dispatch(new SearchEnrichmentConfigsAction(''));
           }
         }
       });

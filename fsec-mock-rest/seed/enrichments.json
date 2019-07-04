@@ -1,12 +1,26 @@
 [
     {
-        "id": "url-host-bad",
+        "id": "host-bad",
         "name": "host blacklist",
         "description": "Redis table based lookup for blacklisted host names",
         "type": "list",
         "engine": "redis",
-        "table": "url_host_bad",
+        "table": "host_bad",
         "key": "host",
+        "requires": "host",
+        "values": [
+            "score"
+        ]
+    },
+    { 
+        "id": "host-blacklist",
+        "name": "host blacklist",
+        "description": "Redis table based lookup for blacklisted host IPs",
+        "type": "list",
+        "engine": "redis",
+        "table": "ip_bad",
+        "key": "ip",
+        "requires": "ip",
         "values": [
             "score"
         ]
@@ -16,7 +30,8 @@
         "name": "dga detection",
         "type": "ml",
         "model": "dga",
-        "model_version": "1.0"
+        "model_version": "1.0",
+        "requires": ["domain"]
     },
     {
         "id": "dga-2",
@@ -24,7 +39,8 @@
         "description": "A machine learning model to determine DGA status",
         "type": "ml",
         "model": "dga",
-        "model_version": "2.0"
+        "model_version": "2.0",
+        "requires": ["domain"]
     },
     {
         "id": "domain-whitelist",
@@ -35,7 +51,8 @@
         "key": "domain",
         "values": [
             "source"
-        ]
+        ],
+        "requires": ["domain"]
     },
     {
         "id": "domain-blacklist",
@@ -47,13 +64,15 @@
         "values": [
             "source",
             "score"
-        ]
+        ],
+        "requires": ["domain"]
     },
     {
         "id": "rare_domain",
         "name": "rare domain",
         "description": "Adds a score based on the rarity of the domain",
-        "type": "model"
+        "type": "model",
+        "requires": ["domain"]
     },
     {
         "id": "new_domain",
@@ -67,6 +86,7 @@
                 "added": "new Date()",
                 "source": "sensor"
             }
-        ]
+        ],
+        "requires": ["domain"]
     }
 ]

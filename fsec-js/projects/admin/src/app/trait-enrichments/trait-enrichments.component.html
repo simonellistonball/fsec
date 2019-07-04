@@ -1,3 +1,43 @@
-<p>
-  trait-enrichments works!
-</p>
+<div *ngIf="model | async ; let model">
+  <h2>{{ model.name }} </h2>
+  <p>{{ model.description }}</p>
+  <nz-table #enrichmentTable
+    nzShowSizeChanger
+    [nzFrontPagination]="false"
+    [nzData]="model.fields"
+    [nzLoading]="loading"
+    >
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th>Enrichments</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template ngFor let-data [ngForOf]="enrichmentTable.data">
+        <tr [class.error]="data.error" [class.warning]="data.warning">
+          <td width="15%">
+              {{ data.name || data.trait }}
+          </td>
+          <td>
+            <nz-select
+              [nzMaxTagCount]="50"
+              style="width: 100%"
+              nzMode="multiple"
+              nzPlaceHolder="Select enrichments"
+              [(ngModel)]="selected[data.id]"
+              (ngModelChange)="changeEnrichments(model.id, data.id)"
+              [nzDropdownRender]="renderDropdown"
+            >
+              <nz-option *ngFor="let option of enrichments | async" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+            </nz-select>
+            <ng-template #renderDropdown>
+                <nz-divider style="margin: 4px 0;"></nz-divider>
+                <div style="padding: 8px; cursor: pointer" (click)="addEnrichment(model.id, data.id)"><i nz-icon nzType="plus"></i> New enrichment</div>
+              </ng-template>
+          </td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </nz-table>
+</div>
