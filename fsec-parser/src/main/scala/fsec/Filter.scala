@@ -1,5 +1,0 @@
-package fsec
-
-trait Filter {
-
-}
