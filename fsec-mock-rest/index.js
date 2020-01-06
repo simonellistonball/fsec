@@ -8,6 +8,31 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const util = require('util')
 const app = express();
+const http = require('http').Server(app);
+var expressWs = require('express-ws')(app);
+
+/*app.ws('/ws', function(ws,req) {
+  ws.on('message', msg => ws.send(msg));
+  ws.on('close', () => { console.log('websocket closed') })
+});
+*/
+app.ws('/ws', function(ws, req) {
+  ws.on('message', msg => {
+    ws.send(msg)
+  })
+  ws.on('close', () => {
+    console.log('WebSocket was closed')
+  })
+
+});
+
+setInterval(() => {
+  expressWs.getWss('/ws').clients.forEach(function (client) {
+    client.send('ping');
+  });
+}, 1000);
+
+
 
 const apiRoot = '/api/v1';
 var stores = {
@@ -15,7 +40,9 @@ var stores = {
   schemas: [],
   tenants: [], 
   users: [],
-  enrichments: []
+  enrichments: [],
+  investigations: [],
+  parsers: []
 }
 
 app.set('port', (process.env.PORT || 3000));
@@ -86,7 +113,12 @@ router.use(function(req, res, next) {
 for (var key in stores) initStore(key)
 
 // Put special resource handlres HERE
-// ...
+router.get(apiRoot+'/config', function(req, res) {
+  res.status(200).json({
+    wsUrl: 'ws://localhost:' + app.get('port') + '/ws',
+    multiTenant: true
+  })
+});
 // End of special resource handlers
 // ===================================
 
@@ -188,10 +220,10 @@ router.put(apiRoot+'/:resource/:id', function(req, res) {
   }
 })
 
+
 // Start mock server
-app.listen(app.get('port'), function() {
-  console.log('Server started: http://localhost:' + app.get('port') + '/');
-});
+app.listen(app.get('port'));
+
 module.exports = app;
 
 process.on('SIGINT', () => {

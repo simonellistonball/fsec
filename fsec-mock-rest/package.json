@@ -10,12 +10,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/socket.io": "^2.1.2",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
+    "express-ws": "^4.0.0",
+    "express-ws-routes": "^1.1.0",
     "fs": "0.0.1-security",
     "morgan": "^1.9.1",
     "ncp": "^2.0.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "socket.io": "^2.2.0"
   }
 }
