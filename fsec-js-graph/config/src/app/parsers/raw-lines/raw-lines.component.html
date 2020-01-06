@@ -1,0 +1,8 @@
+<app-parser-source-select (dosearch)="sourceSearch"></app-parser-source-select>
+
+<div class="rawLines" *ngIf="!editMode">
+    <div class="rawLine" *ngFor="let line of lines | async" >
+        {{ line }}
+    </div>
+</div>
+<ngx-monaco-editor [options]="editorOptions" *ngIf="editMode"></ngx-monaco-editor>

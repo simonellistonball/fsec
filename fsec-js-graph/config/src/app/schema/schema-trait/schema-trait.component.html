@@ -1,0 +1,20 @@
+<div class="wrapper" *ngIf="models | async; let models">
+  <pre>
+      {{ models.links | json }}
+  </pre>
+  <svg #backgroundSvg [style.width]="(models.items.length * 300 + (models.items.length - 1) * 80)  + 'px'">
+      <svg:g class="links">
+      <svg:g #linkElement *ngFor="let lg of models.links; let i = index" class="link-group" [attr.transform]="'translate(' + (380 * i + 300) + ',0)'">
+        <svg:path class="edge" [attr.d]="link.line" stroke="black" stroke-width="2" *ngFor="let link of lg"/>
+      </svg:g>
+    </svg:g>
+  </svg>
+
+  <ng-container *ngFor="let col of models.items; let i = index">
+    <div class="col" [style.left]="(i * 380) + 'px'">
+      <ng-container *ngFor="let data of col">
+        <app-schema-trait-card [data]="data"></app-schema-trait-card>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

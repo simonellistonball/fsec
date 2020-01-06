@@ -1,0 +1,4 @@
+<div class="outputLine" *ngFor="let line of lines | async">
+    line.content | outputKeyValues
+    <nz-alert nzType="error" nzMessage="{{ error }}" *ngFor="let error of line.errors"></nz-alert>    
+</div>

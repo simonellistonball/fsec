@@ -1,0 +1,49 @@
+<nz-layout>
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzWidth]="width" [nzReverseArrow]="isReverseArrow">
+    <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu>
+        <span title><i nz-icon [nzType]="'tool'"></i><span class="nav-text">Configuration</span></span>
+        <ul>
+          <li nz-menu-item><a routerLink="/parsers">Parsers</a></li>
+          <li nz-menu-item><a routerLink="/schemas">Schema</a></li>
+          <li nz-menu-item><a routerLink="/enrichments">Enrichments</a></li>
+          <li nz-menu-item><a routerLink="/profiles">Profiles</a></li>
+          <li nz-menu-item><a routerLink="/sensors">Sensors</a></li>
+        </ul>
+      </li>
+      <li nz-submenu>
+        <span title><i nz-icon [nzType]="'team'"></i><span class="nav-text">Users and Tenants</span></span>
+        <ul>
+            <li nz-menu-item><a routerLink="/tenants">Tenants</a></li>
+            <li nz-menu-item><a routerLink="/users">Users</a></li>
+        </ul>
+      </li>
+      <li nz-submenu>
+        <span title><i nz-icon [nzType]="'line-chart'"></i><span class="nav-text">System</span></span>
+        <ul>
+          <li nz-menu-item><a routerLink="/performance">Performance</a></li>
+        </ul>
+      </li>
+      <li nz-submenu>
+          <span title><i nz-icon [nzType]="'file'"></i><span class="nav-text">Investigation</span></span>
+          <ul>
+            <li nz-menu-item><a class="nav-link" routerLink="/alerts">Alerts</a></li>
+            <li nz-menu-item><a class="nav-link" routerLink="/hunter">Hunter</a></li>
+            <li nz-menu-item><a class="nav-link" routerLink="/investigate">Investigation Files</a></li>
+            </ul>
+      </li>
+      
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header style="background: #fff; padding:0 16px;">
+      <nz-breadcrumb [nzAutoGenerate]="true" style="margin:16px 0;"></nz-breadcrumb>
+    </nz-header>
+    <nz-content style="margin:16px 16px 0px 16px; min-height: 100vh;">
+      <div style="padding:4px; background: #fff; min-height: 360px;">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+    <nz-footer style="text-align: center;">Fsec</nz-footer>
+  </nz-layout>
+</nz-layout>

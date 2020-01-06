@@ -1,0 +1,35 @@
+<nz-card style="width: 100%;" [nzBordered]="true" [nzTitle]="titleTemplate">
+    <nz-card-tab>
+        <nz-tabset nzSize="small" (nzSelectChange)="changeTab()" [(nzSelectedIndex)]="tabIndex">
+            <nz-tab nzTitle="Basics"></nz-tab>
+            <nz-tab nzTitle="Config"></nz-tab>
+            <nz-tab nzTitle="Outputs"></nz-tab>
+            <nz-tab nzTitle="Advanced"></nz-tab>
+        </nz-tabset>
+    </nz-card-tab>
+    <div class="basicsTab" *ngIf="tabIndex == 0">
+        Parser Class: {{ step.parser }}
+    </div>
+    <div class="configTab" *ngIf="tabIndex == 1">
+        <!-- insert correct configuration extension here -->
+        <ng-template appParserStepConfigHost></ng-template>
+    </div>
+    <div class="outputsTab" *ngIf="tabIndex == 2">
+        <div class="field" *ngFor="let f of step.outputFields">
+            {{ f }}
+        </div>
+    </div>
+    <div class="advancedTab" *ngIf="tabIndex == 3">
+        <ngx-monaco-editor class="advanced-editor" [options]="editorOptions" [formControl]="advancedEditor"></ngx-monaco-editor>
+    </div>
+</nz-card>
+
+<ng-template #titleTemplate>
+    {{ step.parser | prettyParserName }}
+    <span *ngIf="step.source">
+        <i nz-icon nzType="warning" nzTheme="twotone" nzTwotoneColor="#ff0000" *ngIf="step.missingSource"></i> ({{step.source}})
+    </span>
+    <i nz-icon nzType="diff" nzTheme="fill" *ngIf="step.preserveSource"></i>
+</ng-template>
+
+<br/>

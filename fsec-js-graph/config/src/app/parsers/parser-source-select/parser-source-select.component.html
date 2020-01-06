@@ -1,0 +1,78 @@
+<form [formGroup]="form">
+    <nz-form-item>
+        <nz-radio-group formControlName="rawSource" [nzButtonStyle]="'solid'">
+            <label *ngIf="upload" nz-radio-button nzValue="upload">Upload</label>
+            <label nz-radio-button nzValue="kafka">Kafka</label>
+            <label nz-radio-button nzValue="url">URL (hdfs)</label>
+            <label *ngIf="manual" nz-radio-button nzValue="manual">Manual</label>
+        </nz-radio-group>
+    </nz-form-item>
+    <nz-form-item *ngIf="advancedClustering">
+        <nz-form-label nzFor="advancedClustering">Clustered</nz-form-label>
+        <nz-form-control>
+            <nz-switch formControlName="advancedClustering"></nz-switch>
+        </nz-form-control>
+    </nz-form-item>
+
+    <div class="uploadArea" *ngIf="upload && uploadVisible$ | async">
+        <nz-upload
+            nzType="drag"
+            [nzMultiple]="false"
+            [nzAction]="uploadLocation"
+            (nzChange)="handleUpload($event)"
+        >
+        <p class="ant-upload-drag-icon">
+            <i nz-icon nzType="inbox"></i>
+        </p>
+        <p class="ant-upload-text">Click or drag file to this area to upload</p>
+        <p class="ant-upload-hint">
+            Upload raw sample files here. Files will be stored in temporary space and will be periodically deleted from the server.
+        </p>
+        </nz-upload>
+    </div>
+
+    <div class="kafkaTopic" *ngIf="kafka && kafkaVisible$ | async">
+        <nz-form-item>
+            <nz-form-control [nzSpan]="18">
+                <nz-select
+                    nzSpan="8"
+                    nzMode="single"
+                    formControlName="kafkaTopic"
+                    nzPlaceHolder="Select topic"
+                    nzAllowClear
+                    nzShowSearch
+                    [nzServerSearch]="true"
+                    (nzOnSearch)="onSearchKafka($event)"
+                    >
+                    <ng-container *ngFor="let o of optionList">
+                        <nz-option *ngIf="!isLoading" [nzValue]="o" [nzLabel]="o"></nz-option>
+                    </ng-container>
+                    <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+                        <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
+                    </nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item> 
+    </div>
+
+    <div class="url" *ngIf="urlVisible$ | async">
+        <nz-form-item>
+            <nz-form-control [nzSpan]="18">
+                <input 
+                    nz-input 
+                    nzPlaceholder="URL"
+                    formControlName="url">
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+
+    <nz-form-item *ngIf="search">
+        <nz-input-group [nzSuffix]="suffixIconSearch">
+            <input formControlName="search" name="search" type="text" nz-input placeholder="grep pattern" />
+        </nz-input-group>
+    </nz-form-item>
+    
+    <ng-template #suffixIconSearch>
+        <i nz-icon nzType="search"></i>
+    </ng-template>
+</form>

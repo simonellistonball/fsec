@@ -1,0 +1,43 @@
+<nz-table #sensorTable
+    nzShowSizeChanger
+    [nzFrontPagination]="false"
+    [nzData]="dataSet | async"
+    [nzLoading]="loading"
+    [nzTotal]="total"
+    [(nzPageIndex)]="pageIndex"
+    [(nzPageSize)]="pageSize"
+    (nzPageIndexChange)="search()"
+    (nzPageSizeChange)="search()"
+    nzSize="small">
+
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+      <tr>
+        <th nzShowExpand></th>
+        <th nzShowSort nzSortKey="name">Name</th>
+        <th nzShowSort nzSortKey="version">Version</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template ngFor let-data [ngForOf]="sensorTable.data">
+        <tr [class.error]="data.error" [class.warning]="data.warning">
+          <td nzShowExpand [(nzExpand)]="mapOfExpandData[data.id]"></td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.version }}</td>
+          <td>
+            <button (click)="open(data.id)" nz-button nzType="default">Open</button>&nbsp;
+            <button
+              nz-popconfirm
+              nzTitle="Are you sure you want to delete this parser?"
+              (nzOnConfirm)="delete(data.id)"
+              nz-button
+              nzType="danger">Delete</button>
+          </td>
+        </tr>
+        <tr [nzExpand]="mapOfExpandData[data.id]">
+            <td></td>
+            <td colspan="3">{{ data.name }}</td>
+          </tr>
+        </ng-template>
+    </tbody>
+</nz-table>

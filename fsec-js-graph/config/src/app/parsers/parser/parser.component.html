@@ -1,0 +1,57 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">Name</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="A simple name for the parser, must be alphanumeric">
+        <input nz-input formControlName="name" id="name" />
+      </nz-form-control>
+    </nz-form-item>   
+</form>
+
+<nz-tabset>
+  <nz-tab nzTitle="Develop">
+    <div nz-row>
+        <div nz-col nzSpan="10">
+        <div class="steps"> 
+          <div class="step" *ngFor="let step of chain | async as items ; let i = index;">
+            <app-parser-step *ngIf="i > 0" [previousStep]="items[i-1]" [step]="step"></app-parser-step>
+            <app-parser-step *ngIf="i == 0" [step]="step"></app-parser-step>
+          </div>
+        </div>
+        <div class="normals">
+          <app-normalizer-step [step]="step" *ngFor="let step of normals | async"></app-normalizer-step>
+        </div>
+      </div>
+      <div nz-col nzSpan="14">
+          <nz-tabset>
+            <nz-tab nzTitle="Sample Runs">
+                <app-raw-lines></app-raw-lines>
+                <app-output-lines></app-output-lines>
+            </nz-tab>
+            <nz-tab nzTitle="Output Schema">
+              <nz-table #outputFieldsTable [nzData]="outputFields | async">
+                <thead>
+                  <tr>
+                    <th>Field</th>
+                    <th>Traits</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of outputFieldsTable.data">
+                    <td>{{ data.name }}</td>
+                    <td><nz-tag [nzColor]="tag.color" *ngFor="let tag of data.tags">{{ tag.name }}</nz-tag></td>
+                  </tr>
+                </tbody>
+              </nz-table>
+            </nz-tab>
+          </nz-tabset>
+      </div>
+    </div>
+  </nz-tab>
+  <nz-tab nzTitle="Test">
+    <app-parser-tester></app-parser-tester>
+  </nz-tab>
+  <nz-tab nzTitle="Version">
+    <app-parser-versions></app-parser-versions>
+  </nz-tab>
+</nz-tabset>
+

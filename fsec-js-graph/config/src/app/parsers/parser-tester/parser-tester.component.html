@@ -1,0 +1,54 @@
+<button nz-button nzType="primary" *ngIf="!(creatingTest | async)" (click)="newTest()"><i nz-icon nzType="plus"></i>Create test</button>
+<div *ngIf="creatingTest | async">
+    <form nz-form [formGroup]="testForm" (ngSubmit)="submitTestForm()">
+        <app-parser-source-select [manual]="false"></app-parser-source-select>
+        
+        <nz-form-item>
+            <nz-form-label nzSpan="5" nzRequired>Run count</nz-form-label>
+            <nz-form-control>
+                <nz-input-number formControlName="runCount" [nzMin]="1" [nzStep]="1"></nz-input-number>
+            </nz-form-control>    
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label nzSpan="5"  nzRequired>Generation Rate (EPS)</nz-form-label>
+            <nz-form-control>
+                <nz-input-number formControlName="generationRate" [nzMin]="1" [nzStep]="100"></nz-input-number>
+            </nz-form-control>    
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control>
+                <button nz-button nzType="primary"><i nz-icon nzType="caret-right"></i>Run test</button>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>
+
+<nz-table #parserTestTable [nzData]="dataset | async">
+    <thead>
+        <th nzShowExpand></th>
+        <th>Time</th>
+        <th>Version</th>
+        <th>Source</th>
+        <th>Errors</th>
+        <th>Warnings</th>
+        <th>Performance</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of parserTestTable.data">
+            <td nzShowExpand [(nzExpand)]="mapOfExpandData[data.id]"></td>
+            <td>{{ data.timestamp }}</td>
+            <td>{{ data.version }}</td>
+            <td>{{ data.source }}</td>
+            <td>{{ data.errors }}</td>
+            <td>{{ data.warnings }}</td>
+            <td>{{ data.performance }}</td>
+        </tr>
+        <tr *ngFor="let data of parserTestTable.data" 
+            [nzExpand]="mapOfExpandData[data.id]">
+            <td></td>
+            <td colspan="6">{{ data.source_url }}</td>
+        </tr>
+    </tbody>
+</nz-table>

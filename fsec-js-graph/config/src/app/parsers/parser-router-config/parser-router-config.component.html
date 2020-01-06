@@ -1,0 +1,45 @@
+<h3>Router config</h3>
+<!-- check the route input is relevant -->
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
+    <nz-select
+        style="width: 200px;"
+        nzShowSearch
+        nzAllowClear
+        nzPlaceHolder="Select routing field"
+        formControlName="routingField"
+        >
+        <nz-option [nzLabel]="v" [nzValue]="v" *ngFor="let v of inputFields"></nz-option>
+    </nz-select>
+
+<nz-table #basicTable [nzShowPagination]="false" [nzData]="dataSet">
+    <thead>
+        <tr>
+            <th>Match</th>
+            <th>Parser chain</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data">
+            <td nzWidth="100px">
+                <div class="editable-cell" *ngIf="editId !== data.id; else editTpl">
+                    <div class="editable-cell-value-wrap" (click)="startEdit(data.id, data.route, $event)">
+                        {{ data.route }}
+                    </div>
+                </div>
+                <ng-template #editTpl>
+                    <textarea style="width: 100px; height: 100%;" nz-input formControlName="routeEditor"></textarea>
+                </ng-template>
+            </td>
+            <td>
+                <div class="steps">
+                    <div class="step" *ngFor="let step of data.parseChain as items ; let i = index;">
+                        <app-parser-step *ngIf="i > 0" [previousStep]="items[i-1]" [step]="step"></app-parser-step>
+                        <app-parser-step *ngIf="i == 0" [step]="step"></app-parser-step>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+
+</form>
