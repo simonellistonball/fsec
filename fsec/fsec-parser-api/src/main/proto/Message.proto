@@ -1,0 +1,29 @@
+syntax = "proto3";
+package fsec.parser;
+
+option java_package = "fsec.parser";
+option java_multiple_files = true;
+option optimize_for = SPEED;
+
+message Message {
+    map<string, string> values = 1;
+    bytes original = 2;
+    int64 timestamp = 3;
+    // The original timezone, since it's lost in the timestamp
+    string tz = 4;
+}
+
+message Error {
+    string error = 1;
+    string message = 2;
+}
+
+message Invalid {
+    repeated string validationError = 1;
+    Message message = 2;
+}
+
+message BatchOfMessages {
+    int32 count = 1;
+    repeated Message messages = 2;
+}

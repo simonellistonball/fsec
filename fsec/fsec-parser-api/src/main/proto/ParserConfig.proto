@@ -1,0 +1,29 @@
+syntax = "proto3";
+package fsec.parser.config;
+
+option java_package = "fsec.parser.config";
+option java_multiple_files = true;
+
+import "google/protobuf/struct.proto";
+
+message ParserChainLink {
+    string parser = 1;
+    google.protobuf.Struct config = 2;
+    string source = 3;
+    bool preserveSource = 4;
+}
+
+message NormalizeChainLink {
+    string normalizer = 1;
+    google.protobuf.Struct config = 2;
+}
+
+message SensorConfig {
+    string name = 1;
+    string inputTopic = 2;
+    string outputTopic = 3;
+    string invalidTopic = 4;
+    string errorTopic = 5;
+    repeated ParserChainLink parserChain = 6;
+    repeated NormalizeChainLink normalizerChain = 7;
+}

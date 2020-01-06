@@ -1,0 +1,117 @@
+{
+  "name": "asa",
+  "parserChain": [
+    {
+      "parser": "fsec.parser.Syslog3164Parser",
+      "config": {}
+    },
+    {
+      "parser": "fsec.parser.AsaParser",
+      "source": "syslog.message",
+      "preserveSource": true,
+      "config": {}
+    },
+    {
+      "parser": "fsec.parser.Router",
+      "source": "asa.message",
+      "preserveSource": true,
+      "config": {
+        "route": "asa.identifier",
+        "ASA-2-106001": {
+          "parserChain": [
+            {
+              "parser": "fsec.parser.GrokParser",
+              "config": {
+                "file": "cisco_asa.grok",
+                "pattern": "CISCOFW106001"
+              }
+            }
+          ]
+        },
+        "ASA-6-30201[345]": {
+          "parserChain": [
+            {
+              "parser": "fsec.parser.GrokParser",
+              "config": {
+                "file": "cisco_asa.grok",
+                "pattern": "CISCOFW302013_302014_302015_302016"
+              }
+            }
+          ]
+        },
+        "ASA-2-10600[67]": {
+          "parserChain": [
+            {
+              "parser": "fsec.parser.GrokParser",
+              "config": {
+                "file": "cisco_asa.grok",
+                "pattern": "CISCOFW106006_106007_106010"
+              }
+            }
+          ]
+        },
+        "ASA-2-106010": {
+          "parserChain": [
+            {
+              "parser": "fsec.parser.GrokParser",
+              "config": {
+                "file": "cisco_asa.grok",
+                "pattern": "CISCOFW106006_106007_106010"
+              }
+            }
+          ]
+        },
+        "ASA-7-71000\\d": {
+          "parserChain": [
+            {
+              "parser": "fsec.parser.GrokParser",
+              "config": {
+                "file": "cisco_asa.grok",
+                "pattern": "CISCOFW710001_710002_710003_710005_710006"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "normalizerChain": [
+    {
+      "normalizer": "fsec.normalizer.FixDates",
+      "config": {
+        "inputTz": "EDT",
+        "fields": [
+          "timestamp",
+          "deviceTime"
+        ]
+      }
+    },
+    {
+      "normalizer": "fsec.normalizer.Rename",
+      "config": {
+        "syslog.host": "hostname",
+        "syslog.timestamp": "log_time"
+      }
+    },
+    {
+      "normalizer": "fsec.normalizer.MapTraits",
+      "config": {
+        "hostname": "hostname",
+        "ip_src_addr": [
+          "ip_src_addr#ip",
+          "#network communication"
+        ],
+        "ip_src_port": [
+          "#network communication"
+        ],
+        "ip_dst_addr": [
+          "ip_dst_addr#ip",
+          "#network communication"
+        ],
+        "ip_dst_port": [
+          "#network communication"
+        ]
+      }
+    }
+  ]
+}

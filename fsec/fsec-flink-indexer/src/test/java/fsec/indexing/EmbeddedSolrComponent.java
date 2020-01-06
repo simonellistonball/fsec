@@ -1,6 +1,6 @@
 package fsec.indexing;
 
-import fsec.indexing.flink.PurgingCountTrigger;
+import fsec.indexing.flink.PurgingCountTimeLimitTrigger;
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer;
 import org.apache.solr.core.CoreContainer;
 import org.slf4j.Logger;
@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 public class EmbeddedSolrComponent {
-    private static final Logger LOG = LoggerFactory.getLogger(PurgingCountTrigger.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PurgingCountTimeLimitTrigger.class);
 
     private EmbeddedSolrServer server;
     private CoreContainer container;
