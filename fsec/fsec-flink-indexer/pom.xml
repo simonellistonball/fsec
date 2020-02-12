@@ -36,7 +36,7 @@ under the License.
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<kafka.version>2.2.0</kafka.version>
-		<solr.version>8.0.0</solr.version>
+		<solr.version>8.4.1</solr.version>
 	</properties>
 
 	<repositories>
